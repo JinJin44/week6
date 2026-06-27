@@ -61,8 +61,16 @@
         const result = document. querySelector("#result");
 
         button.addEventListener("click",() => {
-            const height = Number(document.querySelector("#height").value);
-            const weight = Number(document.querySelector("#weight"). value);
+           
+            let height = Number(document.querySelector("#height").value);
+            let weight = Number(document.querySelector("#weight").value);
+
+            if (height === 0) {
+            height = 170;  
+}
+            if (weight === 0) {
+            weight = 60;  
+}
 
             console.log("身長:", height);  
             console.log("体重:", weight);
