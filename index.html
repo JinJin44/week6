@@ -1,0 +1,85 @@
+<html lang="ja">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI計算ツール</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+ </head>
+ <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+  <header class="w-full bg-gray-600 shadow-sm fixed top-0 left-0 z-50 ">
+    <h1 class="text-3xl font-bold mb-6 flex items-center justify-center">BMI計算ツール</h1>
+  </header>
+
+    <div class="flex flex-row justify-between gap-6">
+        <div class="w-1/2 w-full">
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">身長 (cm)</label>
+                <input id="height" type="number" placeholder="例：160"
+                class="w-full border border-red-300 rounded px-5 py-2">
+                <p class="text-sm text-red-600">1~300の範囲で数値を記入して下さい</p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">体重 (kg)</label>
+                <input id="weight" type="number" placeholder="例：70"
+                class="w-full border border-red-300 rounded px-5 py-2">
+                <p class="text-sm text-red-600">1~300の範囲で数値を記入して下さい</p>
+            </div>
+            <button id="debu"
+        class="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition">
+        BMIを計算する
+            </button>
+            
+        </div>
+            <div class="w-4/5">
+            <div class="w-full border-8  border-gray-300 rounded px-8 py-4 shadow mb-4">
+                <span class="text-3xl fond-bold ">あなたのBMI数値：</span>
+                <p id="数値" class="mt-6 text-center text-lg text-2xl font-bold text-gray-800"></p>
+            </div>
+            <div class="w-full max-w-md border-4 border-gray-300 rounded px-3 py-4">
+                <span class="text-3xl fond-bold">判定結果</span>
+                <p id="result" class="mt-6 text-center text-lg text-2xl font-bold text-green-800"></p>
+            </div>
+    </div>
+
+    <script>
+        function debu(height, weight) {
+            const heightM = height / 100;
+            return weight / (heightM * heightM)                   
+        }
+
+        function getJudgment(bmi) {
+            if (bmi < 18.5) {
+                return "痩せ型";
+            } else if (bmi < 25) {
+                return "普通";
+            } else {
+                return "肥満";
+            }
+        }
+
+        const button = document.querySelector("#debu");
+        const result = document. querySelector("#result");
+
+        button.addEventListener("click",() => {
+            const height = Number(document.querySelector("#height").value);
+            const weight = Number(document.querySelector("#weight"). value);
+
+            console.log("身長:", height);  
+            console.log("体重:", weight);
+            
+            if (height <= 0 || weight <= 0) {
+                document.querySelector("#数値").textContent = "もう一度記入してみて下さい";
+                result.textContent = "";
+                return;
+            }
+
+            const bmi = debu(height, weight);
+            const judgment =getJudgment(bmi);
+
+            document.querySelector("#数値").textContent = bmi.toFixed(1);
+result.textContent = judgment;
+            });
+    </script>
+        
+ </body>
+</html>
